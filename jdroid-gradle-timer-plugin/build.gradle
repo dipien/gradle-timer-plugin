@@ -6,9 +6,12 @@ apply plugin: 'signing'
 ext.projectName = 'Jdroid Gradle Timer Plugin'
 ext.packaging = 'jar'
 
-description = 'Jdroid Gradle Timer Plugin'
-group = 'com.jdroid.gradle.timer'
 version = '0.8.0-SNAPSHOT'
+group = 'com.jdroidframework'
+ext.projectName = 'jdroid-github'
+ext.description = 'Java Gradle Plugin to measure the build time of a project'
+
+ext.packaging = jar
 
 repositories {
 	jcenter()
