@@ -1,0 +1,117 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'signing'
+
+ext.projectName = 'Jdroid Gradle Timer Plugin'
+ext.packaging = 'jar'
+
+description = 'Jdroid Gradle Timer Plugin'
+group = 'com.jdroid.gradle.timer'
+version = '0.8.0-SNAPSHOT'
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+    compile localGroovy()
+
+	compile 'com.jdroidframework:jdroid-java:0.9.0'
+	compile 'com.jdroidframework:jdroid-java-http-okhttp:0.9.0'
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
+
+afterEvaluate {
+	uploadArchives {
+		repositories {
+			mavenDeployer {
+
+				beforeDeployment { MavenDeployment deployment ->
+					signing.signPom(deployment)
+				}
+
+				def localUpload = getProp('LOCAL_UPLOAD')
+				if (localUpload != null && localUpload == 'true') {
+					repository(url: uri(getProp('LOCAL_MAVEN_REPO')))
+				} else {
+					repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+						authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+					}
+					snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+						authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+					}
+				}
+
+				pom.project {
+					name project.ext.projectName
+					description project.description
+					packaging project.packaging
+					url 'http://www.jdroidframework.com'
+					inceptionYear '2011'
+					organization {
+						name 'Jdroid'
+						url 'http://www.jdroidframework.com'
+					}
+					licenses {
+						license {
+							name 'The Apache License, Version 2.0'
+							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+							distribution 'repo'
+						}
+					}
+					developers {
+						developer {
+							name 'Maxi Rosson'
+							email 'jdroidsoft@gmail.com'
+							roles {
+								role 'architect'
+								role 'developer'
+							}
+						}
+					}
+					scm {
+						connection 'scm:git:git@github.com:maxirosson/jdroid-gradle-timer-plugin.git'
+						developerConnection 'scm:git:git@github.com:maxirosson/jdroid-gradle-timer-plugin.git'
+						url 'git@github.com:maxirosson/jdroid-gradle-timer-plugin.git'
+					}
+					issueManagement {
+						system 'GitHub'
+						url 'https://github.com/maxirosson/jdroid-gradle-timer-plugin/issues'
+					}
+				}
+			}
+		}
+	}
+
+}
+
+signing {
+	required { gradle.taskGraph.hasTask("uploadArchives") }
+	sign configurations.archives
+}
+
+def getRepositoryUsername() {
+	return getProp('NEXUS_USERNAME')
+}
+
+def getRepositoryPassword() {
+	getProp('NEXUS_PASSWORD')
+}
+
+public def getProp(String propertyName) {
+	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
+}
