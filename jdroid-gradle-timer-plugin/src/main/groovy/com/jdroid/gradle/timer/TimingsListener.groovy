@@ -18,10 +18,15 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 	private Clock clock = null
 	private String profilingTag;
 	private String url;
+	private String executedTasks;
 
 	public TimingsListener(String profilingTag, String url) {
 		this.profilingTag = profilingTag;
 		this.url = url;
+	}
+
+	Boolean isValidExecutedTasks() {
+		return executedTasks != null && !executedTasks.equals("[]") && !executedTasks.equals("[ ]");
 	}
 
 	@Override
@@ -29,7 +34,7 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 
 	@Override
 	void buildFinished(BuildResult result) {
-		if (clock != null && result.getFailure() == null) {
+		if (clock != null && result.getFailure() == null && isValidExecutedTasks()) {
 			def time = clock.timeInMs
 			String cpu = SysInfo.getCPUIdentifier()
 			String os = SysInfo.getOSIdentifier()
@@ -42,7 +47,9 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 				builder.append(new Random().nextLong());
 				builder.append(",\"timing\":");
 				builder.append(time);
-				builder.append(",\"cpu\":\"");
+				builder.append(",\"executedTasks\":\"");
+				builder.append(executedTasks);
+				builder.append("\",\"cpu\":\"");
 				builder.append(cpu);
 				builder.append("\",\"os\":\"");
 				builder.append(os);
@@ -68,6 +75,7 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 
 	@Override
 	void projectsEvaluated(Gradle gradle) {
+		executedTasks = gradle.getStartParameter().getTaskNames().toString()
 		if (clock == null) {
 			clock = new org.gradle.util.Clock()
 		}
