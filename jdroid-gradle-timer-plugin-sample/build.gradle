@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'com.jdroid.gradle.timer'
+
+buildscript {
+	repositories {
+		mavenCentral()
+		if (project.hasProperty('LOCAL_MAVEN_REPO')) {
+			maven {
+				url LOCAL_MAVEN_REPO
+			}
+		}
+	}
+
+	dependencies {
+		classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.8.0-SNAPSHOT'
+	}
+}
+
+jdroidGradleTimer {
+	enableProfiling = true
+	profilingTag = 'test'
+	url = 'quick-entities.herokuapp.com/test'
+}
