@@ -1,7 +1,7 @@
 # Gradle Timer Plugin
 Gradle Plugin to measure the build times of a project
 
-Every time a build is executed on gradle, this plugin will report the build time to a server. You can use [Quick Entities](https://github.com/fernandospr/quick-entities) to host the server.
+Every time a build is executed on gradle, this plugin will report the build time to a server. You can use [Quick Entities](https://github.com/fernandospr/quick-entities) as the server.
 
 The following is an example of the POST request that the plugin will execute:
 
