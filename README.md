@@ -1,5 +1,19 @@
 # Gradle Timer Plugin
-Gradle Plugin to measure the build time of a project
+Gradle Plugin to measure the build times of a project
+
+Every time a build is executed on gradle, this plugin will report the build time to a server. You can use [Quick Entities](https://github.com/fernandospr/quick-entities) to host the server.
+
+The following is an example of the POST request that the plugin will execute:
+
+    {
+        id: "-248736759798762853",
+        timing: 107,
+        executedTasks: "[clean]",
+        cpu: "Intel(R) Core(TM) i5-3427U CPU @ 1.80GHz",
+        os: "Mac OS X 10.10.4 x86_64",
+        tag: "test",
+        date: "2015-08-22 21:24:49"
+    }
 
 ## Setup 
 
