@@ -17,8 +17,14 @@ Add the following configuration to your `build.gradle`:
     }
     
     jdroidGradleTimer {
+    
+      // Whether the timing profiling is enabled or no
       enableProfiling = true
+      
+      // A tag that will be added to each report
       profilingTag = 'TAG_NAME'
+      
+      // The url (without the http:// scheme) where the results will be posted
       url = 'URL_TO_POST_RESULTS'
     }
 
