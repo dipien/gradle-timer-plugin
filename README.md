@@ -1,6 +1,26 @@
 # Gradle Timer Plugin
 Gradle Plugin to measure the build time of a project
 
+## Setup 
+
+Add the following configuration to your `build.gradle`:
+
+    apply plugin: 'com.jdroid.gradle.timer'
+
+    buildscript {
+      repositories {
+        mavenCentral()
+      }
+      dependencies {
+        classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.0'
+      }
+    }
+    
+    jdroidGradleTimer {
+      enableProfiling = true
+      profilingTag = 'TAG_NAME'
+      url = 'URL_TO_POST_RESULTS'
+    }
 
 -----------
 Help us to continue with this project:
