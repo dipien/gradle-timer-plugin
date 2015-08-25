@@ -12,13 +12,13 @@ Add the following configuration to your `build.gradle`:
         mavenCentral()
       }
       dependencies {
-        classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.0'
+        classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.1'
       }
     }
     
     jdroidGradleTimer {
     
-      // Whether the timing profiling is enabled or no
+      // Whether the timing profiling is enabled or not
       enableProfiling = true
       
       // A tag that will be added to each report
@@ -26,6 +26,9 @@ Add the following configuration to your `build.gradle`:
       
       // The url (without the http:// scheme) where the results will be posted
       url = 'URL_TO_POST_RESULTS'
+      
+      // Whether the logs are enabled or not
+      enableLogs = false
     }
 
 ## Usage
@@ -35,7 +38,6 @@ Every time a build is executed on gradle, this plugin will report the build time
 The following is an example of the POST request that the plugin will execute:
 
     {
-        id: "-248736759798762853",
         timing: 107,
         executedTasks: "[clean]",
         cpu: "Intel(R) Core(TM) i5-3427U CPU @ 1.80GHz",
