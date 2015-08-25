@@ -7,6 +7,7 @@ public class GradleTimerExtension {
 	Boolean enableProfiling = false
 	String profilingTag
 	String url
+	Boolean enableLogs = false
 
 	public GradleTimerExtension(GradleTimerPlugin gradleTimerPlugin) {
 		this.gradleTimerPlugin = gradleTimerPlugin

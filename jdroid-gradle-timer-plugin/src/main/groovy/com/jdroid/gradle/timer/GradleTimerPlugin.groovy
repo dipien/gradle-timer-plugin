@@ -10,7 +10,7 @@ public class GradleTimerPlugin implements Plugin<Project> {
 		project.extensions.create("jdroidGradleTimer", GradleTimerExtension.class, this)
 		project.afterEvaluate {
 			if (project.jdroidGradleTimer.enableProfiling) {
-				project.gradle.addListener new TimingsListener(project.jdroidGradleTimer.profilingTag, project.jdroidGradleTimer.url)
+				project.gradle.addListener new TimingsListener(project.jdroidGradleTimer.profilingTag, project.jdroidGradleTimer.url, project.jdroidGradleTimer.enableLogs)
 			}
 		}
 	}

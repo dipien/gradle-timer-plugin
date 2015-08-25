@@ -7,7 +7,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.0'
+		classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.1'
 	}
 }
 
@@ -15,4 +15,5 @@ jdroidGradleTimer {
 	enableProfiling = true
 	profilingTag = 'test'
 	url = 'quick-entities.herokuapp.com/test'
+	enableLogs = false
 }

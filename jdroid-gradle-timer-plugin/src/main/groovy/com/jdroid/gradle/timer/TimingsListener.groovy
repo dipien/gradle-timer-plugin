@@ -19,10 +19,12 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 	private String profilingTag;
 	private String url;
 	private String executedTasks;
+	private Boolean enableLogs;
 
-	public TimingsListener(String profilingTag, String url) {
+	public TimingsListener(String profilingTag, String url, Boolean enableLogs) {
 		this.profilingTag = profilingTag;
 		this.url = url;
+		this.enableLogs = enableLogs;
 	}
 
 	Boolean isValidExecutedTasks() {
@@ -43,9 +45,7 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 				BodyEnclosingHttpService service = new OkPostHttpService(new DefaultServer(url), null, null);
 
 				StringBuilder builder = new StringBuilder();
-				builder.append("{\"id\":");
-				builder.append(new Random().nextLong());
-				builder.append(",\"timing\":");
+				builder.append("{\"timing\":");
 				builder.append(time);
 				builder.append(",\"executedTasks\":\"");
 				builder.append(executedTasks);
@@ -60,9 +60,17 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 				builder.append("\"}");
 
 				service.setBody(builder.toString());
+
+				if (enableLogs) {
+					println "Url: " + service.getUrl()
+					println "Body: " + builder.toString()
+				}
+
 				service.execute();
 			} catch (Exception e) {
-				println e.getMessage()
+				if (enableLogs) {
+					println e.getMessage()
+				}
 			}
 		}
 	}
