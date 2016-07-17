@@ -1,9 +1,16 @@
 # Gradle Timer Plugin
 Gradle Plugin to measure the build times of a project
 
+## Continuous Integration
+|Branch|Status|
+| ------------- | ------------- |
+|Master|[![Build Status](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin)|
+|Staging|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-gradle-timer-plugin.svg?branch=staging)](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin)|
+|Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-gradle-timer-plugin.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin)|
+
 ## Setup 
 
-Add the following configuration to your `build.gradle`:
+Add the following configuration to your `build.gradle`, replacing X.Y.Z by the [latest version](https://github.com/maxirosson/jdroid-gradle-timer-plugin/releases/latest)
 
     apply plugin: 'com.jdroid.gradle.timer'
 
@@ -12,7 +19,7 @@ Add the following configuration to your `build.gradle`:
         mavenCentral()
       }
       dependencies {
-        classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.1'
+        classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:X.Y.Z'
       }
     }
     
