@@ -1,119 +1,69 @@
-apply plugin: 'groovy'
-apply plugin: 'maven'
-apply plugin: 'java-gradle-plugin'
-apply plugin: 'signing'
+ext.VERSION_MAJOR = 0
+ext.VERSION_MINOR = 9
+ext.VERSION_PATCH = 2
 
-ext.projectName = 'Jdroid Gradle Timer Plugin'
-ext.packaging = 'jar'
+ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
+ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-gradle-timer-plugin'
 
-version = '0.9.1-SNAPSHOT'
-group = 'com.jdroidframework'
-ext.description = 'Java Gradle Plugin to measure the build time of a project'
+apply plugin: 'com.jdroid.gradle.plugin'
+apply plugin: 'com.jdroid.component.builder'
+apply plugin: 'com.gradle.plugin-publish'
 
-ext.packaging = jar
+ext.PROJECT_NAME = 'Jdroid Gradle Timer Plugin'
+description = 'Jdroid Gradle Plugin to measure the build time of a project'
+
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+		maven {
+			url "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+		if (localMavenRepo != null) {
+			maven {
+				url localMavenRepo
+			}
+		}
+	}
+	dependencies {
+		// https://plugins.gradle.org/plugin/com.gradle.plugin-publish
+		classpath "com.gradle.publish:plugin-publish-plugin:0.9.4"
+
+		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.9.7-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
+	}
+}
 
 repositories {
+	mavenCentral()
 	jcenter()
 }
 
 dependencies {
-    compile localGroovy()
-
 	compile 'com.jdroidframework:jdroid-java:0.9.0'
 	compile 'com.jdroidframework:jdroid-java-http-okhttp:0.9.0'
 }
 
-task javadocJar(type: Jar) {
-	classifier = 'javadoc'
-	from javadoc
-}
+// Configuration to publish your plugin to the plugin portal
+pluginBundle {
+	website = 'http://www.jdroidframework.com/'
+	vcsUrl = 'https://github.com/maxirosson/jdroid-gradle-timer-plugin'
 
-task sourcesJar(type: Jar) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
-}
-
-artifacts {
-	archives javadocJar, sourcesJar
-}
-
-afterEvaluate {
-	uploadArchives {
-		repositories {
-			mavenDeployer {
-
-				beforeDeployment { MavenDeployment deployment ->
-					signing.signPom(deployment)
-				}
-
-				def localUpload = getProp('LOCAL_UPLOAD')
-				if (localUpload != null && localUpload == 'true') {
-					repository(url: uri(getProp('LOCAL_MAVEN_REPO')))
-				} else {
-					repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-						authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-					}
-					snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-						authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-					}
-				}
-
-				pom.project {
-					name project.ext.projectName
-					description project.description
-					packaging project.packaging
-					url 'http://www.jdroidframework.com'
-					inceptionYear '2011'
-					organization {
-						name 'Jdroid'
-						url 'http://www.jdroidframework.com'
-					}
-					licenses {
-						license {
-							name 'The Apache License, Version 2.0'
-							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-							distribution 'repo'
-						}
-					}
-					developers {
-						developer {
-							name 'Maxi Rosson'
-							email 'jdroidsoft@gmail.com'
-							roles {
-								role 'architect'
-								role 'developer'
-							}
-						}
-					}
-					scm {
-						connection 'scm:git:git@github.com:maxirosson/jdroid-gradle-timer-plugin.git'
-						developerConnection 'scm:git:git@github.com:maxirosson/jdroid-gradle-timer-plugin.git'
-						url 'git@github.com:maxirosson/jdroid-gradle-timer-plugin.git'
-					}
-					issueManagement {
-						system 'GitHub'
-						url 'https://github.com/maxirosson/jdroid-gradle-timer-plugin/issues'
-					}
-				}
-			}
+	plugins {
+		GooglePlayPublisherPlugin {
+			id = 'com.jdroid.gradle.timer'
+			displayName = 'Jdroid Gradle Timer Plugin'
+			description = 'Jdroid Gradle Plugin to measure the build time of a project'
+			tags = ['jdroid', 'gradle', 'timer']
 		}
 	}
 
-}
-
-signing {
-	required { gradle.taskGraph.hasTask("uploadArchives") }
-	sign configurations.archives
-}
-
-def getRepositoryUsername() {
-	return getProp('NEXUS_USERNAME')
-}
-
-def getRepositoryPassword() {
-	getProp('NEXUS_PASSWORD')
-}
-
-public def getProp(String propertyName) {
-	return project.hasProperty(propertyName) ? project.ext.get(propertyName) : System.getenv(propertyName)
+	mavenCoordinates {
+		groupId = "com.jdroidframework"
+		artifactId = "jdroid-gradle-timer-plugin"
+	}
 }
