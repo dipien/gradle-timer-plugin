@@ -5,4 +5,5 @@ sudo: false
 jdk:
   - oraclejdk8
 
-script: ./jdroid-gradle-timer-plugin/gradlew check uploadArchives -PLOCAL_UPLOAD=false --stacktrace
+script:
+  - ./gradlew :plugin:check :plugin:uploadArchives -PLOCAL_UPLOAD=false --configure-on-demand --stacktrace

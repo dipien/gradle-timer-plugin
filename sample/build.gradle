@@ -12,8 +12,8 @@ buildscript {
 }
 
 jdroidGradleTimer {
-	enableProfiling = true
+	enableProfiling = false
 	profilingTag = 'test'
 	url = 'quick-entities.herokuapp.com/test'
-	enableLogs = false
+	enableLogs = true
 }

@@ -1,16 +1,5 @@
-ext.VERSION_MAJOR = 0
-ext.VERSION_MINOR = 9
-ext.VERSION_PATCH = 2
-
-ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
-ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-gradle-timer-plugin'
-
 apply plugin: 'com.jdroid.gradle.plugin'
-apply plugin: 'com.jdroid.component.builder'
 apply plugin: 'com.gradle.plugin-publish'
-
-ext.PROJECT_NAME = 'Jdroid Gradle Timer Plugin'
-description = 'Jdroid Gradle Plugin to measure the build time of a project'
 
 buildscript {
 	repositories {
@@ -34,7 +23,6 @@ buildscript {
 		classpath "com.gradle.publish:plugin-publish-plugin:0.9.4"
 
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.9.7-SNAPSHOT'
-		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0-SNAPSHOT'
 	}
 }
 
