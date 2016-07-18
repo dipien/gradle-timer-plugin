@@ -1,9 +1,10 @@
 package com.jdroid.gradle.timer
 
+import com.jdroid.java.date.DateTimeFormat
+import com.jdroid.java.date.DateUtils
 import com.jdroid.java.http.DefaultServer
 import com.jdroid.java.http.okhttp.post.OkPostHttpService
 import com.jdroid.java.http.post.BodyEnclosingHttpService
-import com.jdroid.java.utils.DateUtils
 import org.gradle.BuildListener
 import org.gradle.BuildResult
 import org.gradle.api.Task
@@ -56,7 +57,7 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 				builder.append("\",\"tag\":\"");
 				builder.append(profilingTag);
 				builder.append("\",\"date\":\"");
-				builder.append(DateUtils.format(DateUtils.now(), DateUtils.YYYYMMDDHHMMSS_DATE_FORMAT));
+				builder.append(DateUtils.format(DateUtils.now(), DateTimeFormat.YYYYMMDDHHMMSS));
 				builder.append("\"}");
 
 				service.setBody(builder.toString());

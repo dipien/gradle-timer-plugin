@@ -4,10 +4,16 @@ apply plugin: 'com.jdroid.gradle.timer'
 buildscript {
 	repositories {
 		mavenCentral()
+		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+		if (localMavenRepo != null) {
+			maven {
+				url localMavenRepo
+			}
+		}
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.1'
+		classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.2-SNAPSHOT'
 	}
 }
 
