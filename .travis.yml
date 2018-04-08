@@ -1,9 +1,0 @@
-language: java
-
-sudo: false
-
-jdk:
-  - oraclejdk8
-
-script:
-  - ./gradlew :plugin:check :plugin:uploadArchives -PLOCAL_UPLOAD=false --configure-on-demand --stacktrace

@@ -1,8 +1,5 @@
-ext.VERSION_MAJOR = 0
-ext.VERSION_MINOR = 9
-ext.VERSION_PATCH = 3
+version '1.0.0'
 
-ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-gradle-timer-plugin'
 
 ext.PROJECT_NAME = 'Jdroid Gradle Timer Plugin'
@@ -15,18 +12,19 @@ buildscript {
 	repositories {
 		mavenCentral()
 		jcenter()
-		maven {
-			url "https://oss.sonatype.org/content/repositories/snapshots/"
-		}
+		maven { url "https://plugins.gradle.org/m2/" }
 		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
 		if (localMavenRepo != null) {
-			maven {
-				url localMavenRepo
-			}
+			maven { url localMavenRepo }
 		}
+		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 	}
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-component-builder:0.3.0-SNAPSHOT'
-		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.10.0'
+
+		// https://github.com/maxirosson/jdroid-component-builder/releases
+		classpath 'com.jdroidframework:jdroid-component-builder:0.5.0-SNAPSHOT'
+
+		// https://github.com/maxirosson/jdroid-gradle-plugin/releases
+		classpath 'com.jdroidframework:jdroid-gradle-root-plugin:0.18.0'
 	}
 }

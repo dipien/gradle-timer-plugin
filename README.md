@@ -2,11 +2,11 @@
 Gradle Plugin to measure the build times of a project
 
 ## Continuous Integration
-|Branch|Status|
-| ------------- | ------------- |
-|Master|[![Build Status](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin)|
-|Staging|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-gradle-timer-plugin.svg?branch=staging)](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin)|
-|Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-gradle-timer-plugin.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid-gradle-timer-plugin)|
+|Branch|Status|Workflows|Insights|
+| ------------- | ------------- | ------------- | ------------- |
+|master|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/master.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/master)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-gradle-timer-plugin/tree/master)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-gradle-timer-plugin/master)|
+|staging|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/staging.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/staging)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-gradle-timer-plugin/tree/staging)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-gradle-timer-plugin/staging)|
+|production|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/production.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/production)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-gradle-timer-plugin/tree/production)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-gradle-timer-plugin/production)|
 
 ## Setup 
 
@@ -57,5 +57,3 @@ The following is an example of the POST request that the plugin will execute:
 Help us to continue with this project:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2UEBTRTSCYA9L)
-
-<a href='https://pledgie.com/campaigns/30030'><img alt='Click here to lend your support to: Jdroid and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/30030.png?skin_name=chrome' border='0' ></a>
