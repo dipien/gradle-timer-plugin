@@ -1,7 +1,6 @@
 version '1.0.0'
 
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-gradle-timer-plugin'
-ext.ARTIFACT_ID = 'jdroid-gradle-timer-plguin'
 ext.PROJECT_NAME = 'Jdroid Gradle Timer Plugin'
 description = 'Jdroid Gradle Plugin to measure the build time of a project'
 
