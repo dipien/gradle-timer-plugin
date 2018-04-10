@@ -16,7 +16,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:0.9.3-SNAPSHOT'
+		classpath 'com.jdroidtools:jdroid-gradle-timer-plugin:1.0.0-SNAPSHOT'
 	}
 }
 
