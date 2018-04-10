@@ -1,4 +1,4 @@
-ext.ARTIFACT_ID = 'jdroid-gradle-timer-plguin'
+ext.ARTIFACT_ID = 'jdroid-gradle-timer-plugin'
 
 apply plugin: 'com.jdroid.gradle.plugin'
 apply plugin: 'com.gradle.plugin-publish'
