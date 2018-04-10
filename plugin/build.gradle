@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.jdroidtools:jdroid-java:1.0.0'
+	compile 'com.jdroidtools:jdroid-java-core:1.0.0'
 	compile 'com.jdroidtools:jdroid-java-http-okhttp:1.0.0'
 }
 
