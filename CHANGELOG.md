@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.0.0](https://github.com/maxirosson/jdroid-gradle-timer-plugin/tree/v1.0.0) (2018-04-10)
+[Full Changelog](https://github.com/maxirosson/jdroid-gradle-timer-plugin/compare/v0.9.2...v1.0.0)
+
+**Closed issues:**
+
+- New group id: com.jdroidtools [\#2](https://github.com/maxirosson/jdroid-gradle-timer-plugin/issues/2)
+
 ## [v0.9.2](https://github.com/maxirosson/jdroid-gradle-timer-plugin/tree/v0.9.2) (2016-07-18)
 [Full Changelog](https://github.com/maxirosson/jdroid-gradle-timer-plugin/compare/v0.9.1...v0.9.2)
 
