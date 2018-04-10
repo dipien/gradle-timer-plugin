@@ -16,10 +16,10 @@ Add the following configuration to your `build.gradle`, replacing X.Y.Z by the [
 
     buildscript {
       repositories {
-        mavenCentral()
+        jcenter()
       }
       dependencies {
-        classpath 'com.jdroidframework:jdroid-gradle-timer-plugin:X.Y.Z'
+        classpath 'com.jdroidtools:jdroid-gradle-timer-plugin:X.Y.Z'
       }
     }
     

@@ -22,7 +22,7 @@ buildscript {
 		// https://plugins.gradle.org/plugin/com.gradle.plugin-publish
 		classpath "com.gradle.publish:plugin-publish-plugin:0.9.4"
 
-		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.18.0'
+		classpath 'com.jdroidtools:jdroid-gradle-project-plugin:1.0.0'
 	}
 }
 
@@ -32,13 +32,13 @@ repositories {
 }
 
 dependencies {
-	compile 'com.jdroidframework:jdroid-java:0.9.6'
-	compile 'com.jdroidframework:jdroid-java-http-okhttp:0.9.6'
+	compile 'com.jdroidtools:jdroid-java:1.0.0'
+	compile 'com.jdroidtools:jdroid-java-http-okhttp:1.0.0'
 }
 
 // Configuration to publish your plugin to the plugin portal
 pluginBundle {
-	website = 'http://www.jdroidframework.com/'
+	website = 'http://jdroidtools.com/'
 	vcsUrl = 'https://github.com/maxirosson/jdroid-gradle-timer-plugin'
 
 	plugins {
@@ -51,7 +51,7 @@ pluginBundle {
 	}
 
 	mavenCoordinates {
-		groupId = "com.jdroidframework"
+		groupId = "com.jdroidtools"
 		artifactId = "jdroid-gradle-timer-plugin"
 	}
 }
