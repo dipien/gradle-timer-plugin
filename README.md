@@ -5,7 +5,6 @@ Gradle Plugin to measure the build times of a project
 |Branch|Status|Workflows|Insights|
 | ------------- | ------------- | ------------- | ------------- |
 |master|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/master.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/master)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-gradle-timer-plugin/tree/master)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-gradle-timer-plugin/master)|
-|staging|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/staging.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/staging)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-gradle-timer-plugin/tree/staging)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-gradle-timer-plugin/staging)|
 |production|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/production.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-gradle-timer-plugin/tree/production)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-gradle-timer-plugin/tree/production)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-gradle-timer-plugin/production)|
 
 ## Setup 
