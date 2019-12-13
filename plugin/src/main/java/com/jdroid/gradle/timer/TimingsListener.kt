@@ -13,8 +13,7 @@ import org.gradle.api.invocation.Gradle
 import org.gradle.api.tasks.TaskState
 
 class TimingsListener(
-    private val profilingTag: String,
-    private val url: String,
+    private val profilingTag: String?,
     private val enableLogs: Boolean
 ) : TaskExecutionListener, BuildListener {
 
@@ -26,18 +25,12 @@ class TimingsListener(
     override fun buildFinished(result: BuildResult) {
         if (result.failure == null && isValidExecutedTasks) {
             val time = System.currentTimeMillis() - timestamp!!
-            val cpu = SysInfo.getCPUIdentifier()
-            val os = SysInfo.getOSIdentifier()
             try {
                 val builder = StringBuilder()
                 builder.append("{\"timing\":")
                 builder.append(time)
                 builder.append(",\"executedTasks\":\"")
                 builder.append(executedTasks)
-                builder.append("\",\"cpu\":\"")
-                builder.append(cpu)
-                builder.append("\",\"os\":\"")
-                builder.append(os)
                 builder.append("\",\"tag\":\"")
                 builder.append(profilingTag)
                 builder.append("\",\"date\":\"")
