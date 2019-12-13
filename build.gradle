@@ -1,29 +1,68 @@
-version '1.0.0'
+version '2.0.0'
 
-ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-gradle-timer-plugin'
-ext.PROJECT_NAME = 'Jdroid Gradle Timer Plugin'
-description = 'Jdroid Gradle Plugin to measure the build time of a project'
+ext.GITHUB_REPOSITORY_OWNER = "maxirosson"
+ext.GITHUB_REPOSITORY_NAME = "jdroid-gradle-timer-plugin"
 
-apply plugin: 'com.jdroid.root'
-apply plugin: 'com.jdroid.component.builder'
+apply plugin: 'com.jdroidtools.root'
+apply plugin: 'com.jdroidtools.component.builder'
 
 buildscript {
 	repositories {
-		mavenCentral()
 		jcenter()
-		maven { url "https://plugins.gradle.org/m2/" }
-		String localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
-		if (localMavenRepo != null) {
-			maven { url localMavenRepo }
+		def localMavenRepoEnabled = project.hasProperty('LOCAL_MAVEN_REPO_ENABLED') ? project.ext.get('LOCAL_MAVEN_REPO_ENABLED') : System.getenv('LOCAL_MAVEN_REPO_EMABLED')
+		boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
+		if (isLocalMavenRepoEnabled) {
+			def localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+			if (localMavenRepo != null) {
+				maven { url localMavenRepo }
+			}
 		}
 		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+		mavenCentral()
+		gradlePluginPortal()
 	}
 	dependencies {
 
 		// https://github.com/maxirosson/jdroid-component-builder/releases
-		classpath 'com.jdroidtools:jdroid-component-builder:1.0.2'
+		classpath 'com.jdroidtools:jdroid-component-builder:2.2.0'
 
-		// https://github.com/maxirosson/jdroid-gradle-plugin/releases
-		classpath 'com.jdroidtools:jdroid-gradle-root-plugin:1.0.0'
+		classpath(BuildLibs.JDROID_GRADLE_ROOT_PLUGIN)
+
+		// TODO Remove this when upgraded to jdroid gradle plugin 2.4.0
+		classpath("com.gradle.publish:plugin-publish-plugin:0.10.1")
 	}
 }
+
+subprojects {
+	buildscript {
+		repositories {
+			jcenter()
+			def localMavenRepoEnabled = project.hasProperty('LOCAL_MAVEN_REPO_ENABLED') ? project.ext.get('LOCAL_MAVEN_REPO_ENABLED') : System.getenv('LOCAL_MAVEN_REPO_EMABLED')
+			boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
+			if (isLocalMavenRepoEnabled) {
+				def localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+				if (localMavenRepo != null) {
+					maven { url localMavenRepo }
+				}
+			}
+			maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+			mavenCentral()
+			gradlePluginPortal()
+		}
+	}
+
+	repositories {
+		jcenter()
+		def localMavenRepoEnabled = project.hasProperty('LOCAL_MAVEN_REPO_ENABLED') ? project.ext.get('LOCAL_MAVEN_REPO_ENABLED') : System.getenv('LOCAL_MAVEN_REPO_EMABLED')
+		boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
+		if (isLocalMavenRepoEnabled) {
+			def localMavenRepo = project.hasProperty('LOCAL_MAVEN_REPO') ? project.ext.get('LOCAL_MAVEN_REPO') : System.getenv('LOCAL_MAVEN_REPO')
+			if (localMavenRepo != null) {
+				maven { url localMavenRepo }
+			}
+		}
+		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+		mavenCentral()
+	}
+}
+

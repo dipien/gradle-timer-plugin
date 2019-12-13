@@ -1,92 +1,144 @@
-defaults: &defaults
-  working_directory: ~/jdroid-gradle-timer-plugin
-  docker:
-    - image: circleci/openjdk:8-jdk
-  environment:
-    JVM_OPTS: -Xmx3200m
-    LOCAL_MAVEN_REPO: ~/repo
-    GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.caching=true
-version: 2
-jobs:
-  build:
-    <<: *defaults
+version: 2.1
+
+references:
+
+  working_dir: &working_dir
+                 ~/project
+
+executors:
+  jdk_executor:
+    working_directory: *working_dir
+    docker:
+      - image: circleci/openjdk:8-jdk
+    environment:
+      JVM_OPTS: -Xmx3200m
+      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.caching=true
+
+commands:
+  restore_gradle_cache:
     steps:
-      - checkout
-
-      # Download and cache dependencies
       - restore_cache:
-          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
+          keys:
+            - v2-gradle_cache-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "buildSrc/src/main/kotlin/Libs.kt" }}-{{ checksum "buildSrc/src/main/kotlin/BuildLibs.kt" }}
+            - v2-gradle_cache-{{ .Branch }}
+            - v2-gradle_cache-
 
-      - run:
-          name: Assembling
-          command: ./gradlew assemble --refresh-dependencies --stacktrace --scan
-
+  save_gradle_cache:
+    steps:
       - save_cache:
+          key: v2-gradle_cache-{{ .Branch }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "buildSrc/src/main/kotlin/Libs.kt" }}-{{ checksum "buildSrc/src/main/kotlin/BuildLibs.kt" }}
           paths:
             - ~/.gradle
-          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
 
+  attach_to_workspace:
+    steps:
+      - attach_workspace:
+          at: ~/
+
+  persist_gradle_build_cache:
+    steps:
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - gradle-build-cache
+
+jobs:
+  gradleCache:
+    executor: jdk_executor
+    steps:
+      - checkout
+      - restore_gradle_cache
       - run:
-          name: Saving jars
-          command: |
-            mkdir -p ~/jars/
-            find . -type f -regex ".*/build/libs/.*jar" -exec cp {} ~/jars/ \;
-          when: always
+          name: Download dependencies
+          command: ./gradlew dependencies --stacktrace
+      - save_gradle_cache
+      - persist_gradle_build_cache
 
+  ktlint:
+    executor: jdk_executor
+    steps:
+      - checkout
+      - restore_gradle_cache
+      - run:
+          name: Ktlint
+          command: ./gradlew ktlint --stacktrace
+
+  build:
+    executor: jdk_executor
+    steps:
+      - checkout
+      - restore_gradle_cache
+      - attach_to_workspace
+      - run:
+          name: Assemble
+          command: ./gradlew assemble --stacktrace
+      - persist_gradle_build_cache
       - store_artifacts:
-          path: ~/jars
+          path: ./build/libs
           destination: jars
 
-  verify:
-    <<: *defaults
+  test:
+    executor: jdk_executor
     steps:
       - checkout
-
-      - restore_cache:
-          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
-
+      - restore_gradle_cache
+      - attach_to_workspace
       - run:
-          name: Verifying
-          command: ./gradlew check --stacktrace
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
-
+          name: Run tests
+          command: ./gradlew test --stacktrace
       - run:
-          name: Saving test results
+          name: Save test results
           command: |
             mkdir -p ~/junit/
             find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
           when: always
       - store_test_results:
           path: ~/junit
-
       - store_artifacts:
-          path: ./plugin/build/reports/tests/test
+          path: ./build/reports/tests/test
           destination: tests
 
-  deploy:
-    <<: *defaults
+  publish:
+    executor: jdk_executor
     steps:
       - checkout
-
-      - restore_cache:
-          key: app-{{ .Branch }}-{{ checksum "build.gradle" }}
-
+      - restore_gradle_cache
+      - attach_to_workspace
       - run:
           name: Uploading to Nexus Sonatype
-          command: ./gradlew uploadArchives -PLOCAL_UPLOAD=false --stacktrace
+          command: ./gradlew publish -PLOCAL_UPLOAD=false --refresh-dependencies --stacktrace
+
+  upgradeDependencies:
+    executor: jdk_executor
+    steps:
+      - checkout
+      - restore_gradle_cache
+      - run:
+          name: Upgrade Dependencies
+          command: ./gradlew upgradeDependencies -PpullRequestEnabled=true --stacktrace
 
 workflows:
-  version: 2
   commit:
     jobs:
-      - build
-      - verify:
+      - gradleCache
+      - ktlint
+      - build:
+          requires:
+            - gradleCache
+            - ktlint
+      - test:
           requires:
             - build
-      - deploy:
+      - publish:
           requires:
-            - verify
+            - test
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * 0"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - upgradeDependencies
