@@ -12,11 +12,10 @@ import org.gradle.api.execution.TaskExecutionListener
 import org.gradle.api.initialization.Settings
 import org.gradle.api.invocation.Gradle
 import org.gradle.api.tasks.TaskState
-import org.gradle.util.Clock
 
 public class TimingsListener implements TaskExecutionListener, BuildListener {
 
-	private Clock clock = null
+	private Long timestamp;
 	private String profilingTag;
 	private String url;
 	private String executedTasks;
@@ -38,7 +37,7 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 	@Override
 	void buildFinished(BuildResult result) {
 		if (clock != null && result.getFailure() == null && isValidExecutedTasks()) {
-			def time = clock.timeInMs
+			long time = System.currentTimeMillis() - timestamp
 			String cpu = SysInfo.getCPUIdentifier()
 			String os = SysInfo.getOSIdentifier()
 
@@ -85,9 +84,7 @@ public class TimingsListener implements TaskExecutionListener, BuildListener {
 	@Override
 	void projectsEvaluated(Gradle gradle) {
 		executedTasks = gradle.getStartParameter().getTaskNames().toString()
-		if (clock == null) {
-			clock = new org.gradle.util.Clock()
-		}
+		timestamp = System.currentTimeMillis()
 	}
 
 	@Override
