@@ -29,6 +29,10 @@ class PropertyResolver(private val project: Project) {
         }
     }
 
+    fun getRequiredStringProp(propertyName: String, defaultValue: String): String {
+        return getStringProp(propertyName, defaultValue)!!
+    }
+
     fun getStringProp(propertyName: String, defaultValue: String? = null): String? {
         val value = getProp(propertyName)
         return value?.toString() ?: defaultValue

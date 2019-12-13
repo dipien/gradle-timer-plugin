@@ -24,15 +24,14 @@ buildscript {
 }
 
 jdroidGradleTimer {
-	profilingTag = 'test'
-	enableLogs = true
+	tag = 'test'
 	buildHook = new BuildHook() {
-		void onBuildSuccess(TimingResult result) {
-			println("* onBuildSuccess")
+		void onBuildSuccess(TimingResult timingResult) {
+			println("onBuildSuccess: " + timingResult.toString())
 		}
 
-		void onBuildFail(TimingResult result, Throwable failure) {
-			println("* onBuildFail")
+		void onBuildFail(TimingResult timingResult, Throwable failure) {
+			println("onBuildFail: " + timingResult.toString())
 		}
 	}
 }

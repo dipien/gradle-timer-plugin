@@ -7,7 +7,6 @@ open class GradleTimerExtension(project: Project) {
 
     private val propertyResolver: PropertyResolver = PropertyResolver(project)
 
-    var profilingTag: String? = propertyResolver.getStringProp(::profilingTag.name)
-    var enableLogs: Boolean = propertyResolver.getBooleanProp(::enableLogs.name, false) ?: false
+    var tag: String = propertyResolver.getRequiredStringProp(::tag.name, "unknown")
     var buildHook: BuildHook? = null
 }
