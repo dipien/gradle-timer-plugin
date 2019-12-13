@@ -1,8 +1,6 @@
 package com.jdroid.gradle.timer
 
-import com.jdroid.java.date.DateTimeFormat
 import com.jdroid.java.date.DateUtils
-import com.jdroid.java.date.DateUtils.now
 import org.gradle.BuildListener
 import org.gradle.BuildResult
 import org.gradle.api.Task
@@ -16,6 +14,9 @@ class TimingsListener(
     private val enableLogs: Boolean
 ) : TaskExecutionListener, BuildListener {
 
+    private var timestamp: Long? = null
+    private var executedTasks: String? = null
+
     val isValidExecutedTasks: Boolean
         get() = executedTasks != null && executedTasks != "[]" && executedTasks != "[ ]"
 
@@ -25,18 +26,9 @@ class TimingsListener(
         if (result.failure == null && isValidExecutedTasks) {
             val time = System.currentTimeMillis() - timestamp!!
             try {
-                val builder = StringBuilder()
-                builder.append("{\"timing\":")
-                builder.append(time)
-                builder.append(",\"executedTasks\":\"")
-                builder.append(executedTasks)
-                builder.append("\",\"tag\":\"")
-                builder.append(profilingTag)
-                builder.append("\",\"date\":\"")
-                builder.append(DateUtils.format(now(), DateTimeFormat.YYYYMMDDHHMMSS))
-                builder.append("\"}")
+                val timingResult = TimingResult(profilingTag!!, time, executedTasks!!, DateUtils.now())
                 if (enableLogs) {
-                    println(builder.toString())
+                    println(timingResult.toString())
                 }
             } catch (e: Exception) {
                 if (enableLogs) {
@@ -47,14 +39,16 @@ class TimingsListener(
     }
 
     override fun beforeExecute(task: Task) {}
+
     override fun afterExecute(task: Task, taskState: TaskState) {}
+
     override fun projectsEvaluated(gradle: Gradle) {
         executedTasks = gradle.startParameter.taskNames.toString()
         timestamp = System.currentTimeMillis()
     }
 
     override fun projectsLoaded(gradle: Gradle) {}
+
     override fun settingsEvaluated(settings: Settings) {}
-    private var timestamp: Long? = null
-    private var executedTasks: String? = null
+
 }

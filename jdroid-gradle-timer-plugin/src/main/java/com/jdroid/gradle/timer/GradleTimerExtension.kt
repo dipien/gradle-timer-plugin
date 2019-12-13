@@ -1,9 +1,12 @@
 package com.jdroid.gradle.timer
 
+import com.jdroid.gradle.timer.common.PropertyResolver
 import org.gradle.api.Project
 
 open class GradleTimerExtension(project: Project) {
-    var enableProfiling: Boolean = false
-    var profilingTag: String? = null
-    var enableLogs = false
+
+    private val propertyResolver: PropertyResolver = PropertyResolver(project)
+
+    var profilingTag: String? = propertyResolver.getStringProp(::profilingTag.name)
+    var enableLogs: Boolean = propertyResolver.getBooleanProp(::enableLogs.name, false) ?: false
 }
