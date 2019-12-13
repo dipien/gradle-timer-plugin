@@ -7,7 +7,7 @@ public class SysInfo {
 	}
 
 	public static String getCPUIdentifier() {
-		def os = System.getProperty("os.name")
+		def os = System.getProperty("os.name");
 		if (os.equalsIgnoreCase("mac os x")) {
 			def proc = ["sysctl", "-n", "machdep.cpu.brand_string"].execute()
 			proc.waitFor()
