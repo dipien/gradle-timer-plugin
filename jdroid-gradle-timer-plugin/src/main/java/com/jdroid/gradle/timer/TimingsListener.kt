@@ -53,5 +53,4 @@ class TimingsListener(
     override fun projectsLoaded(gradle: Gradle) {}
 
     override fun settingsEvaluated(settings: Settings) {}
-
 }
