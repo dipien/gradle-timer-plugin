@@ -9,4 +9,5 @@ open class GradleTimerExtension(project: Project) {
 
     var profilingTag: String? = propertyResolver.getStringProp(::profilingTag.name)
     var enableLogs: Boolean = propertyResolver.getBooleanProp(::enableLogs.name, false) ?: false
+    var buildHook: BuildHook? = null
 }

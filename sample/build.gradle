@@ -1,3 +1,6 @@
+import com.jdroid.gradle.timer.BuildHook
+import com.jdroid.gradle.timer.TimingResult
+
 apply plugin: 'java'
 apply plugin: 'com.jdroidtools.gradle.timer'
 
@@ -23,4 +26,13 @@ buildscript {
 jdroidGradleTimer {
 	profilingTag = 'test'
 	enableLogs = true
+	buildHook = new BuildHook() {
+		void onBuildSuccess(TimingResult result) {
+			println("* onBuildSuccess")
+		}
+
+		void onBuildFail(TimingResult result, Throwable failure) {
+			println("* onBuildFail")
+		}
+	}
 }

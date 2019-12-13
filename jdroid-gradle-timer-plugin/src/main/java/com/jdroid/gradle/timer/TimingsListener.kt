@@ -11,7 +11,8 @@ import org.gradle.api.tasks.TaskState
 
 class TimingsListener(
     private val profilingTag: String?,
-    private val enableLogs: Boolean
+    private val enableLogs: Boolean,
+    private val buildHook: BuildHook?
 ) : TaskExecutionListener, BuildListener {
 
     private var timestamp: Long? = null
@@ -23,16 +24,18 @@ class TimingsListener(
     override fun buildStarted(gradle: Gradle) {}
 
     override fun buildFinished(result: BuildResult) {
-        if (result.failure == null && isValidExecutedTasks) {
+        if (isValidExecutedTasks) {
             val time = System.currentTimeMillis() - timestamp!!
-            try {
-                val timingResult = TimingResult(profilingTag!!, time, executedTasks!!, DateUtils.now())
+            val timingResult = TimingResult(profilingTag!!, time, executedTasks!!, DateUtils.now())
+            if (result.failure == null) {
+                buildHook?.onBuildSuccess(timingResult)
                 if (enableLogs) {
                     println(timingResult.toString())
                 }
-            } catch (e: Exception) {
+            } else {
+                buildHook?.onBuildFail(timingResult, result.failure!!)
                 if (enableLogs) {
-                    println(e.message)
+                    println(timingResult.toString())
                 }
             }
         }
