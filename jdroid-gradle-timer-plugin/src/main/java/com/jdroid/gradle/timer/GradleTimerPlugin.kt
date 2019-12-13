@@ -10,7 +10,7 @@ class GradleTimerPlugin : Plugin<Project> {
     }
 
     override fun apply(project: Project) {
-        val extension = project.extensions.create(EXTENSION_NAME, GradleTimerExtension::class.java, this)
+        val extension = project.extensions.create(EXTENSION_NAME, GradleTimerExtension::class.java, project)
         project.afterEvaluate {
             project.gradle.addListener(TimingsListener(extension.profilingTag, extension.enableLogs))
         }

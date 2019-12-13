@@ -1,2 +1,3 @@
-include ':plugin'
-include ':sample'
+include ':jdroid-gradle-timer-plugin'
+
+apply from: new File(settingsDir, "buildCacheSettings.gradle")

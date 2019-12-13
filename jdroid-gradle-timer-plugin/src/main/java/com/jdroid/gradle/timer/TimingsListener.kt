@@ -2,7 +2,6 @@ package com.jdroid.gradle.timer
 
 import com.jdroid.java.date.DateTimeFormat
 import com.jdroid.java.date.DateUtils
-import com.jdroid.java.date.DateUtils.format
 import com.jdroid.java.date.DateUtils.now
 import org.gradle.BuildListener
 import org.gradle.BuildResult
@@ -37,10 +36,8 @@ class TimingsListener(
                 builder.append(DateUtils.format(now(), DateTimeFormat.YYYYMMDDHHMMSS))
                 builder.append("\"}")
                 if (enableLogs) {
-                    println("Url: " + service.url)
-                    println("Body: $builder")
+                    println(builder.toString())
                 }
-                service.execute()
             } catch (e: Exception) {
                 if (enableLogs) {
                     println(e.message)

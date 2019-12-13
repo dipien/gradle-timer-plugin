@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'com.jdroid.gradle.timer'
+apply plugin: 'com.jdroidtools.gradle.timer'
 
 buildscript {
 	repositories {
@@ -16,13 +16,12 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidtools:jdroid-gradle-timer-plugin:1.0.0-SNAPSHOT'
+		classpath 'com.jdroidtools:jdroid-gradle-timer-plugin:2.0.0-SNAPSHOT'
 	}
 }
 
 jdroidGradleTimer {
 	enableProfiling = false
 	profilingTag = 'test'
-	url = 'quick-entities.herokuapp.com/test'
 	enableLogs = true
 }
