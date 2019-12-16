@@ -8,16 +8,12 @@ import org.gradle.api.invocation.Gradle
 class TimingsListener(private val tag: String, private val buildHook: BuildHook?) : AbstractBuildListener() {
 
     private var timestamp: Long? = null
-    private var executedTasks: String? = null
-
-    val isValidExecutedTasks: Boolean
-        get() = executedTasks != null && executedTasks != "[]" && executedTasks != "[ ]"
 
     override fun buildFinished(result: BuildResult) {
-        if (isValidExecutedTasks) {
+        if (!result.gradle!!.startParameter.taskNames.isNullOrEmpty()) {
             val now = DateUtils.now()
-            val time = now.time - timestamp!!
-            val timingResult = TimingResult(tag, time, executedTasks!!, now)
+            val time = if (timestamp != null) now.time - timestamp!! else null
+            val timingResult = TimingResult(tag, time, result.gradle!!.startParameter, now)
             if (result.failure == null) {
                 buildHook?.onBuildSuccess(timingResult)
             } else {
@@ -27,7 +23,6 @@ class TimingsListener(private val tag: String, private val buildHook: BuildHook?
     }
 
     override fun projectsEvaluated(gradle: Gradle) {
-        executedTasks = gradle.startParameter.taskNames.toString()
         timestamp = System.currentTimeMillis()
     }
 }
