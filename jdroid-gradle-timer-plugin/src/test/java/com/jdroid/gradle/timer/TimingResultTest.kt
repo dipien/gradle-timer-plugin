@@ -37,6 +37,20 @@ class TimingResultTest {
         Assert.assertEquals("clean :test :*:assemble", timingResult.getSimplifiedExecutedTasks())
     }
 
+    @Test
+    fun buildCacheTest() {
+        val timingResult = createTimingResult(listOf("clean"))
+        timingResult.startParameter.isBuildCacheEnabled = true
+        Assert.assertEquals("clean --build-cache", timingResult.getSimplifiedExecutedTasks())
+    }
+
+    @Test
+    fun projectPropertiesTest() {
+        val timingResult = createTimingResult(listOf("clean"))
+        timingResult.startParameter.projectProperties = mapOf("param" to "value")
+        Assert.assertEquals("clean -Pparam=value", timingResult.getSimplifiedExecutedTasks())
+    }
+
     private fun createTimingResult(taskNames: List<String>): TimingResult {
         val startParameter = StartParameter()
         startParameter.setTaskNames(taskNames)

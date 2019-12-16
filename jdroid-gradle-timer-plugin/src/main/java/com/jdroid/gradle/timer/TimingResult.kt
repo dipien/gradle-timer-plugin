@@ -41,6 +41,12 @@ data class TimingResult(
             builder.append(" $it")
         }
 
+        if (!startParameter.projectProperties.isNullOrEmpty()) {
+            startParameter.projectProperties.forEach { k, v ->
+                builder.append(" -P$k=$v")
+            }
+        }
+
         if (startParameter.isBuildCacheEnabled) {
             builder.append(" --build-cache")
         }
