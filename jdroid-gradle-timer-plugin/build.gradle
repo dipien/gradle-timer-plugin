@@ -17,10 +17,8 @@ repositories {
 
 dependencies {
 	compile(Libs.JDROID_JAVA_CORE)
-	compile(Libs.JDROID_JAVA_HTTP_OKHTTP)
+	testCompile(Libs.JUNIT)
 }
-
-// Configuration to publish your plugin to the plugin portal
 
 gradlePlugin {
 	plugins {

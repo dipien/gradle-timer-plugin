@@ -11,14 +11,36 @@ data class TimingResult(
 ) {
     fun getSimplifiedExecutedTasks(): String {
         val tasksList = mutableListOf<String>()
+
+        // key: task name, value: module
+        val modulesByTaskMap = mutableMapOf<String, String>()
+        startParameter.taskNames.forEach { task ->
+            if (task.count { char -> char  == ':' } == 2) {
+                val split = task.split(":")
+                val taskName = split.last()
+                if (modulesByTaskMap[taskName] == null) {
+                    modulesByTaskMap[taskName] = split[1]
+                } else {
+                    modulesByTaskMap[taskName] = "*"
+                }
+            }
+        }
+
         startParameter.taskNames.forEach {
-            if (it.startsWith(":")) {
-                tasksList.add(it.split(":").last())
+            if (it.count { char -> char  == ':' } == 2) {
+                val task = it.split(":").last()
+                val module = modulesByTaskMap[task]
+                tasksList.add(":$module:$task")
             } else {
                 tasksList.add(it)
             }
         }
 
-        return tasksList.distinct().toString().replace(",", " ").replace("[", "").replace("]", "")
+        val builder = StringBuilder()
+        tasksList.distinct().forEach {
+            builder.append(" $it")
+        }
+
+        return builder.toString().trim()
     }
 }
