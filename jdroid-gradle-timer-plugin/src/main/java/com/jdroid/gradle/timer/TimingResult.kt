@@ -15,7 +15,7 @@ data class TimingResult(
         // key: task name, value: module
         val modulesByTaskMap = mutableMapOf<String, String>()
         startParameter.taskNames.forEach { task ->
-            if (task.count { char -> char  == ':' } == 2) {
+            if (task.count { char -> char == ':' } == 2) {
                 val split = task.split(":")
                 val taskName = split.last()
                 if (modulesByTaskMap[taskName] == null) {
@@ -27,7 +27,7 @@ data class TimingResult(
         }
 
         startParameter.taskNames.forEach {
-            if (it.count { char -> char  == ':' } == 2) {
+            if (it.count { char -> char == ':' } == 2) {
                 val task = it.split(":").last()
                 val module = modulesByTaskMap[task]
                 tasksList.add(":$module:$task")
@@ -39,6 +39,16 @@ data class TimingResult(
         val builder = StringBuilder()
         tasksList.distinct().forEach {
             builder.append(" $it")
+        }
+
+        if (startParameter.isRefreshDependencies) {
+            builder.append(" --refresh-dependencies")
+        }
+        if (startParameter.isBuildCacheEnabled) {
+            builder.append(" --build-cache")
+        }
+        if (startParameter.isBuildScan) {
+            builder.append(" --scan")
         }
 
         return builder.toString().trim()
