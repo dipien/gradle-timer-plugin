@@ -41,14 +41,8 @@ data class TimingResult(
             builder.append(" $it")
         }
 
-        if (startParameter.isRefreshDependencies) {
-            builder.append(" --refresh-dependencies")
-        }
         if (startParameter.isBuildCacheEnabled) {
             builder.append(" --build-cache")
-        }
-        if (startParameter.isBuildScan) {
-            builder.append(" --scan")
         }
 
         return builder.toString().trim()
