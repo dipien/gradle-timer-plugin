@@ -13,8 +13,8 @@ class TimingsListener(private val tag: String, private val buildHook: BuildHook?
     override fun buildFinished(result: BuildResult) {
         if (!ignoreTracking(result.gradle!!.startParameter)) {
             val now = DateUtils.now()
-            val time = if (timestamp != null) now.time - timestamp!! else null
-            val timingResult = TimingResult(tag, time, result.gradle!!.startParameter, now)
+            val timing = if (timestamp != null) now.time - timestamp!! else null
+            val timingResult = TimingResult(tag, timing, result.gradle!!.startParameter, now)
             if (result.failure == null) {
                 buildHook?.onBuildSuccess(timingResult)
             } else {

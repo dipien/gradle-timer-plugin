@@ -2,7 +2,7 @@ package com.jdroid.gradle.timer
 
 interface BuildHook {
 
-    fun onBuildSuccess(result: TimingResult)
+    fun onBuildSuccess(timingResult: TimingResult)
 
-    fun onBuildFail(result: TimingResult, failure: Throwable)
+    fun onBuildFail(timingResult: TimingResult, failure: Throwable)
 }
