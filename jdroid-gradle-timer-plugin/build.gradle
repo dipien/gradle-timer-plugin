@@ -1,5 +1,6 @@
 ext.PROJECT_NAME = "Jdroiid Gradle Timer Plugin"
 ext.ARTIFACT_ID = 'jdroid-gradle-timer-plugin'
+description = 'Gradle Plugin to measure the build time of a project'
 
 apply plugin: 'com.jdroidtools.gradle.plugin'
 apply plugin: 'com.gradle.plugin-publish'
