@@ -1,10 +1,9 @@
 version '2.0.0'
 
-ext.GITHUB_REPOSITORY_OWNER = "maxirosson"
 ext.GITHUB_REPOSITORY_NAME = "jdroid-gradle-timer-plugin"
 
-apply plugin: 'com.jdroidtools.root'
 apply plugin: 'com.jdroidtools.component.builder'
+apply plugin: 'com.jdroidtools.root'
 
 buildscript {
 	repositories {
@@ -23,9 +22,7 @@ buildscript {
 	}
 	dependencies {
 
-		// https://github.com/maxirosson/jdroid-component-builder/releases
-		classpath 'com.jdroidtools:jdroid-component-builder:2.2.0'
-
+		classpath(BuildLibs.JDROID_COMPONENT_BUILDER)
 		classpath(BuildLibs.JDROID_GRADLE_ROOT_PLUGIN)
 
 		// TODO Remove this when upgraded to jdroid gradle plugin 2.4.0
