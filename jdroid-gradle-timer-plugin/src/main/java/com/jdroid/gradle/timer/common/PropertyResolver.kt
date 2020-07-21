@@ -1,81 +1,22 @@
 package com.jdroid.gradle.timer.common
 
-import com.jdroid.java.utils.StringUtils
-import com.jdroid.java.utils.TypeUtils
-import org.gradle.api.Project
+interface PropertyResolver {
 
-class PropertyResolver(private val project: Project) {
+    fun getStringProp(propertyName: String, defaultValue: String? = null): String?
 
-    private fun getProp(propertyName: String, defaultValue: Any? = null): Any? {
-        return if (project.hasProperty(propertyName)) {
-            project.property(propertyName)
-        } else if (System.getenv().containsKey(propertyName)) {
-            System.getenv(propertyName)
-        } else {
-            defaultValue
-        }
-    }
+    fun getRequiredStringProp(propertyName: String): String
 
-    fun hasProp(propertyName: String): Boolean {
-        return project.hasProperty(propertyName) || System.getenv().containsKey(propertyName)
-    }
+    fun getRequiredStringProp(propertyName: String, defaultValue: String): String
 
-    fun getBooleanProp(propertyName: String, defaultValue: Boolean? = null): Boolean? {
-        val value = getProp(propertyName)
-        return if (value == null) {
-            defaultValue
-        } else {
-            TypeUtils.getBoolean(value.toString())
-        }
-    }
+    fun getRequiredBooleanProp(propertyName: String, defaultValue: Boolean): Boolean
 
-    fun getRequiredStringProp(propertyName: String, defaultValue: String): String {
-        return getStringProp(propertyName, defaultValue)!!
-    }
+    fun getRequiredIntegerProp(propertyName: String): Int
 
-    fun getStringProp(propertyName: String, defaultValue: String? = null): String? {
-        val value = getProp(propertyName)
-        return value?.toString() ?: defaultValue
-    }
+    fun getRequiredIntegerProp(propertyName: String, defaultValue: Int): Int
 
-    fun getIntegerProp(propertyName: String, defaultValue: Int? = null): Int? {
-        val value = getProp(propertyName)
-        return if (value == null) {
-            defaultValue
-        } else {
-            Integer.parseInt(value.toString())
-        }
-    }
+    fun getIntegerProp(propertyName: String, defaultValue: Int? = null): Int?
 
-    fun getLongProp(propertyName: String, defaultValue: Long? = null): Long? {
-        val value = getProp(propertyName)
-        return if (value == null) {
-            defaultValue
-        } else {
-            java.lang.Long.parseLong(value.toString())
-        }
-    }
+    fun getDoubleProp(propertyName: String, defaultValue: Double? = null): Double?
 
-    fun getDoubleProp(propertyName: String, defaultValue: Double? = null): Double? {
-        val value = getProp(propertyName)
-        return if (value == null) {
-            defaultValue
-        } else {
-            java.lang.Double.parseDouble(value.toString())
-        }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    fun getStringListProp(propertyName: String, defaultValue: List<String>? = null): List<String>? {
-        val value = getProp(propertyName)
-        return if (value == null) {
-            defaultValue
-        } else {
-            value as? List<String> ?: StringUtils.splitWithCommaSeparator(value.toString())
-        }
-    }
-
-    fun getRequiredStringListProp(propertyName: String, defaultValue: List<String>): List<String> {
-        return getStringListProp(propertyName, defaultValue) ?: defaultValue
-    }
+    fun getStringListProp(propertyName: String, defaultValue: List<String>? = null): List<String>?
 }

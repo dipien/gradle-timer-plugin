@@ -7,7 +7,8 @@ data class TimingResult(
     var tag: String,
     var timing: Long?,
     var startParameter: StartParameter,
-    var date: Date
+    var date: Date,
+    private val extension: GradleTimerExtension
 ) {
     fun getSimplifiedExecutedTasks(): String {
         val tasksList = mutableListOf<String>()
@@ -42,8 +43,10 @@ data class TimingResult(
         }
 
         if (!startParameter.projectProperties.isNullOrEmpty()) {
-            startParameter.projectProperties.forEach { k, v ->
-                builder.append(" -P$k=$v")
+            startParameter.projectProperties.forEach { (k, v) ->
+                if (!extension.projectPropertiesToIgnore.contains(k)) {
+                    builder.append(" -P$k=$v")
+                }
             }
         }
 

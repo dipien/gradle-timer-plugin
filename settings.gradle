@@ -1,3 +1,0 @@
-include ':jdroid-gradle-timer-plugin'
-
-apply from: new File(settingsDir, "buildCacheSettings.gradle")

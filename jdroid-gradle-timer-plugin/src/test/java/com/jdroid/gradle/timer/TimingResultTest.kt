@@ -45,15 +45,29 @@ class TimingResultTest {
     }
 
     @Test
+    fun androidLocationTest() {
+        val timingResult = createTimingResult(listOf("clean"), mapOf("android.injected.attribution.file.location" to "/Users/user1/build"))
+        Assert.assertEquals("clean", timingResult.getSimplifiedExecutedTasks())
+    }
+
+    @Test
+    fun androidLocation2Test() {
+        val timingResult = createTimingResult(listOf("clean"), mapOf("android.injected.attribution.file.location" to "/Users/user1/build"))
+        timingResult.startParameter.isBuildCacheEnabled = true
+        Assert.assertEquals("clean --build-cache", timingResult.getSimplifiedExecutedTasks())
+    }
+
+    @Test
     fun projectPropertiesTest() {
         val timingResult = createTimingResult(listOf("clean"))
         timingResult.startParameter.projectProperties = mapOf("param" to "value")
         Assert.assertEquals("clean -Pparam=value", timingResult.getSimplifiedExecutedTasks())
     }
 
-    private fun createTimingResult(taskNames: List<String>): TimingResult {
+    private fun createTimingResult(taskNames: List<String>, projectProperties: Map<String, String> = emptyMap()): TimingResult {
         val startParameter = StartParameter()
         startParameter.setTaskNames(taskNames)
-        return TimingResult("test", 0, startParameter, DateUtils.now())
+        startParameter.projectProperties = projectProperties
+        return TimingResult("test", 0, startParameter, DateUtils.now(), GradleTimerExtension(FakePropertyResolver()))
     }
 }

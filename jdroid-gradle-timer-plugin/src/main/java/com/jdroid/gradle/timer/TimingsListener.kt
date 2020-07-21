@@ -6,7 +6,7 @@ import org.gradle.BuildResult
 import org.gradle.StartParameter
 import org.gradle.api.invocation.Gradle
 
-class TimingsListener(private val tag: String, private val buildHook: BuildHook?) : AbstractBuildListener() {
+class TimingsListener(private val extension: GradleTimerExtension) : AbstractBuildListener() {
 
     private var timestamp: Long? = null
 
@@ -14,11 +14,11 @@ class TimingsListener(private val tag: String, private val buildHook: BuildHook?
         if (!ignoreTracking(result.gradle!!.startParameter)) {
             val now = DateUtils.now()
             val timing = if (timestamp != null) now.time - timestamp!! else null
-            val timingResult = TimingResult(tag, timing, result.gradle!!.startParameter, now)
+            val timingResult = TimingResult(extension.tag, timing, result.gradle!!.startParameter, now, extension)
             if (result.failure == null) {
-                buildHook?.onBuildSuccess(timingResult)
+                extension.buildHook?.onBuildSuccess(timingResult)
             } else {
-                buildHook?.onBuildFail(timingResult, result.failure!!)
+                extension.buildHook?.onBuildFail(timingResult, result.failure!!)
             }
         }
     }
