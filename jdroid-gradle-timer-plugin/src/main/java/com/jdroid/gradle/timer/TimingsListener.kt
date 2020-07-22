@@ -29,5 +29,6 @@ class TimingsListener(private val extension: GradleTimerExtension) : AbstractBui
 
     override fun projectsEvaluated(gradle: Gradle) {
         timestamp = System.currentTimeMillis()
+        extension.buildHook?.onBuildStarted(gradle.startParameter)
     }
 }

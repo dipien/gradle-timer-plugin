@@ -1,6 +1,10 @@
 package com.jdroid.gradle.timer
 
+import org.gradle.StartParameter
+
 interface BuildHook {
+
+    fun onBuildStarted(startParameter: StartParameter) { }
 
     fun onBuildSuccess(timingResult: TimingResult)
 
