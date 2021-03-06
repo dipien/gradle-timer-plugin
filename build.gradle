@@ -1,9 +1,10 @@
-version '2.2.0'
+version '3.0.0'
 
-ext.GITHUB_REPOSITORY_NAME = "jdroid-gradle-timer-plugin"
+ext.GITHUB_REPOSITORY_NAME = "bye-bye-jetifier"
 
-apply plugin: 'com.jdroidtools.component.builder'
+apply plugin: "com.dipien.component.builder"
 apply plugin: 'com.jdroidtools.root'
+apply plugin: "com.dipien.release"
 
 buildscript {
 	repositories {
@@ -20,13 +21,11 @@ buildscript {
 		mavenCentral()
 		gradlePluginPortal()
 	}
+
 	dependencies {
-
-		classpath(BuildLibs.JDROID_COMPONENT_BUILDER)
+		classpath(BuildLibs.DIPIEN_COMPONENT_BUILDER)
 		classpath(BuildLibs.JDROID_GRADLE_ROOT_PLUGIN)
-
-		// TODO Remove this when upgraded to jdroid gradle plugin 2.4.0
-		classpath("com.gradle.publish:plugin-publish-plugin:0.11.0")
+		classpath(BuildLibs.RELEASE_GRADLE_PLUGIN)
 	}
 }
 
@@ -62,4 +61,5 @@ allprojects {
 		mavenCentral()
 	}
 }
+
 

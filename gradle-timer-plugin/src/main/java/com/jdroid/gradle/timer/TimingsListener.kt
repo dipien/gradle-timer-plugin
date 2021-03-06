@@ -1,10 +1,10 @@
 package com.jdroid.gradle.timer
 
 import com.jdroid.gradle.timer.common.AbstractBuildListener
-import com.jdroid.java.date.DateUtils
 import org.gradle.BuildResult
 import org.gradle.StartParameter
 import org.gradle.api.invocation.Gradle
+import java.util.Date
 
 class TimingsListener(private val extension: GradleTimerExtension) : AbstractBuildListener() {
 
@@ -12,7 +12,7 @@ class TimingsListener(private val extension: GradleTimerExtension) : AbstractBui
 
     override fun buildFinished(result: BuildResult) {
         if (!ignoreTracking(result.gradle!!.startParameter)) {
-            val now = DateUtils.now()
+            val now = Date()
             val timing = if (timestamp != null) now.time - timestamp!! else null
             val timingResult = TimingResult(extension.tag, timing, result.gradle!!.startParameter, now, extension)
             if (result.failure == null) {
