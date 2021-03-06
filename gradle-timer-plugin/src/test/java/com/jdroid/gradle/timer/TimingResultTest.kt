@@ -1,9 +1,9 @@
 package com.jdroid.gradle.timer
 
-import com.jdroid.java.date.DateUtils
 import org.gradle.StartParameter
 import org.junit.Assert
 import org.junit.Test
+import java.util.Date
 
 class TimingResultTest {
 
@@ -68,6 +68,6 @@ class TimingResultTest {
         val startParameter = StartParameter()
         startParameter.setTaskNames(taskNames)
         startParameter.projectProperties = projectProperties
-        return TimingResult("test", 0, startParameter, DateUtils.now(), GradleTimerExtension(FakePropertyResolver()))
+        return TimingResult("test", 0, startParameter, Date(), GradleTimerExtension(FakePropertyResolver()))
     }
 }
