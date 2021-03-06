@@ -2,7 +2,7 @@ import com.jdroid.gradle.timer.BuildHook
 import com.jdroid.gradle.timer.TimingResult
 
 apply plugin: 'java'
-apply plugin: 'com.jdroidtools.gradle.timer'
+apply plugin: 'com.dipien.gradle.timer'
 
 buildscript {
 	repositories {
@@ -19,11 +19,11 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.jdroidtools:jdroid-gradle-timer-plugin:2.0.0-SNAPSHOT'
+		classpath 'com.dipien:gradle-timer-plugin:3.0.0-SNAPSHOT'
 	}
 }
 
-jdroidGradleTimer {
+gradleTimer {
 	tag = 'test'
 	buildHook = new BuildHook() {
 		void onBuildSuccess(TimingResult timingResult) {
