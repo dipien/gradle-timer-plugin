@@ -7,7 +7,7 @@ import org.gradle.api.Project
 class GradleTimerPlugin : Plugin<Project> {
 
     companion object {
-        const val EXTENSION_NAME = "jdroidGradleTimer"
+        const val EXTENSION_NAME = "gradleTimer"
     }
 
     override fun apply(project: Project) {
