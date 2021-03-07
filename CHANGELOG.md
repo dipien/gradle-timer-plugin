@@ -1,5 +1,16 @@
 # Change Log
 
+## [v3.0.0](https://github.com/dipien/gradle-timer-plugin/tree/v3.0.0) (2021-03-07)
+[Full Changelog](https://github.com/dipien/gradle-timer-plugin/compare/v2.1.0...v3.0.0)
+
+**Implemented enhancements:**
+
+- Removed unused koin transitive dependency [\#6](https://github.com/dipien/gradle-timer-plugin/issues/6)
+
+**Closed issues:**
+
+- New "com.dipien" groupId and "gradle-timer-plugin" artifactId [\#5](https://github.com/dipien/gradle-timer-plugin/issues/5)
+
 ## [v2.1.0](https://github.com/dipien/gradle-timer-plugin/tree/v2.1.0) (2020-07-22)
 [Full Changelog](https://github.com/dipien/gradle-timer-plugin/compare/v2.0.0...v2.1.0)
 
