@@ -3,12 +3,6 @@
 # Gradle Timer Plugin
 Gradle Plugin to measure the build times of a project
 
-## Continuous Integration
-|Branch|Status|Workflows|Insights|
-| ------------- | ------------- | ------------- | ------------- |
-|master|[![CircleCI](https://circleci.com/gh/dipien/gradle-timer-plugin/tree/master.svg?style=svg)](https://circleci.com/gh/dipien/gradle-timer-plugin/tree/master)|[Workflows](https://circleci.com/gh/dipien/workflows/gradle-timer-plugin/tree/master)|[Insights](https://circleci.com/build-insights/gh/dipien/gradle-timer-plugin/master)|
-|production|[![CircleCI](https://circleci.com/gh/dipien/gradle-timer-plugin/tree/production.svg?style=svg)](https://circleci.com/gh/dipien/gradle-timer-plugin/tree/production)|[Workflows](https://circleci.com/gh/dipien/workflows/gradle-timer-plugin/tree/production)|[Insights](https://circleci.com/build-insights/gh/dipien/gradle-timer-plugin/production)|
-
 ## Setup
 
 Add the following configuration to your root `build.gradle`, replacing X.Y.Z by the [latest version](https://github.com/dipien/gradle-timer-plugin/releases/latest)
@@ -50,13 +44,14 @@ Every time a build is executed on gradle, this plugin will invoke the buildHook 
     executedTasks: "[clean]"
     date: "2015-08-22 21:24:49"
 
-## Donations
+## Sponsor this project
 
-Donations are greatly appreciated. You can help us to pay for our domain and this project development.
+Sponsor this open source project to help us get the funding we need to continue working on it.
 
 * [Donate cryptocurrency](http://coinbase.dipien.com/)
 * [Donate with PayPal](http://paypal.dipien.com/)
 * [Donate on Patreon](http://patreon.dipien.com/)
+* [Become a member of Medium](https://maxirosson.medium.com/membership) [We will receive a portion of your membership fee]
 
 ## Follow us
 * [Twitter](http://twitter.dipien.com)
@@ -64,4 +59,3 @@ Donations are greatly appreciated. You can help us to pay for our domain and thi
 * [Instagram](http://instagram.dipien.com)
 * [Pinterest](http://pinterest.dipien.com)
 * [GitHub](http://github.dipien.com)
-* [Blog](http://blog.dipien.com)
