@@ -12,7 +12,5 @@ abstract class AbstractBuildListener : BuildListener {
 
     override fun projectsLoaded(gradle: Gradle) {}
 
-    override fun buildStarted(gradle: Gradle) {}
-
     override fun projectsEvaluated(gradle: Gradle) {}
 }
