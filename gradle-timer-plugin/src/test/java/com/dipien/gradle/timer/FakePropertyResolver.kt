@@ -1,6 +1,6 @@
-package com.jdroid.gradle.timer
+package com.dipien.gradle.timer
 
-import com.jdroid.gradle.timer.common.PropertyResolver
+import com.dipien.gradle.timer.common.PropertyResolver
 
 class FakePropertyResolver(private val properties: Map<String, String> = emptyMap()) : PropertyResolver {
 
