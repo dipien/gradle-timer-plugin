@@ -1,6 +1,6 @@
 package com.dipien.gradle.timer
 
-import com.jdroid.gradle.timer.common.propertyResolver
+import com.dipien.gradle.timer.common.propertyResolver
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

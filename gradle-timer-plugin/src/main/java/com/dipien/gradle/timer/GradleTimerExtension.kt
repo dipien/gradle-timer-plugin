@@ -1,6 +1,6 @@
 package com.dipien.gradle.timer
 
-import com.jdroid.gradle.timer.common.PropertyResolver
+import com.dipien.gradle.timer.common.PropertyResolver
 
 open class GradleTimerExtension(propertyResolver: PropertyResolver) {
 

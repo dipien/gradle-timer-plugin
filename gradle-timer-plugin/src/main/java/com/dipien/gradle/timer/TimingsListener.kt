@@ -1,6 +1,6 @@
 package com.dipien.gradle.timer
 
-import com.jdroid.gradle.timer.common.AbstractBuildListener
+import com.dipien.gradle.timer.common.AbstractBuildListener
 import org.gradle.BuildResult
 import org.gradle.StartParameter
 import org.gradle.api.invocation.Gradle
