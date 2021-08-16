@@ -2,7 +2,7 @@ ext.PROJECT_NAME = "Gradle Timer Plugin"
 description = "Gradle Plugin to measure the build time of a project"
 ext.ARTIFACT_ID = "gradle-timer-plugin"
 ext.GRADLE_PLUGIN_ID = "com.dipien.gradle.timer"
-ext.GRADLE_PLUGIN_IMPLEMENTATION_CLASS = "com.jdroid.gradle.timer.GradleTimerPlugin"
+ext.GRADLE_PLUGIN_IMPLEMENTATION_CLASS = "com.dipien.gradle.timer.GradleTimerPlugin"
 ext.GRADLE_PLUGIN_PORTAL_TAGS = ["gradle", "plugin", "timer"]
 
 apply plugin: "com.jdroidtools.gradle.plugin"

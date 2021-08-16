@@ -1,4 +1,4 @@
-package com.jdroid.gradle.timer
+package com.dipien.gradle.timer
 
 import com.jdroid.gradle.timer.common.propertyResolver
 import org.gradle.api.Plugin

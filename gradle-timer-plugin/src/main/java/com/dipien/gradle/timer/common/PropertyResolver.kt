@@ -1,4 +1,4 @@
-package com.jdroid.gradle.timer.common
+package com.dipien.gradle.timer.common
 
 interface PropertyResolver {
 
