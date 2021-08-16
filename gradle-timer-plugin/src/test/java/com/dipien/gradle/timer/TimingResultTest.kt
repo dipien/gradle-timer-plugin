@@ -1,4 +1,4 @@
-package com.jdroid.gradle.timer
+package com.dipien.gradle.timer
 
 import org.gradle.StartParameter
 import org.junit.Assert
